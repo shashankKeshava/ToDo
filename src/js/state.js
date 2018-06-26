@@ -1,6 +1,7 @@
-import {createStore} from './lib/state';
+import { createStore } from './lib/state';
 
 const initialState = {
+    filter: "all",
     todos: [
         {
             id: 0,
@@ -26,7 +27,7 @@ const initialState = {
 };
 
 function todoChangeHandler(state, change) {
-    switch(change.type) {
+    switch (change.type) {
         case 'ADD_TODO':
             state.todos.push({
                 id: state.todos.length,
@@ -35,13 +36,17 @@ function todoChangeHandler(state, change) {
             });
             break;
         case 'TODO_TOGGLE_DONE':
-            for(let todo of state.todos) {
-                if(todo.id === change.id) {
+            for (let todo of state.todos) {
+                if (todo.id === change.id) {
                     todo.done = !todo.done;
                     break;
                 }
             }
             break;
+        case 'FILTER_TODO':
+            const filterType = change.text;
+            state.filter = filterType;
+            return state;
     }
 }
 

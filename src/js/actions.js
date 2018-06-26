@@ -14,3 +14,10 @@ export function addTodo(text) {
         text
     }
 }
+
+export function filterToDo(text){
+    return {
+        type:'FILTER_TODO',
+        text
+    }
+}

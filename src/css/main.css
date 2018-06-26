@@ -7,7 +7,7 @@ html, body, .todo {
     list-style-type: none;
 }
 
-.todo__input, .todo__item {
+.todo__input, .todo__item,.todo_filter {
     margin: 10px;
 }
 
@@ -15,6 +15,10 @@ html, body, .todo {
     text-decoration: line-through;
 }
 
+.todo_filterHeader{
+    font-weight: bolder;
+    font-size: 1.2em;
+}
 #addTodo {
     margin-left: 10px;
 }
