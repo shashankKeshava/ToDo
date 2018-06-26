@@ -9287,25 +9287,30 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var initialState = {
-	    filter: "all",
-	    todos: [{
-	        id: 0,
-	        text: 'Take a look at the application',
-	        done: true
-	    }, {
-	        id: 1,
-	        text: 'Add ability to filter todos',
-	        done: false
-	    }, {
-	        id: 2,
-	        text: 'Filter todos by status',
-	        done: false
-	    }, {
-	        id: 3,
-	        text: 'Filter todos by text',
-	        done: false
-	    }]
+	var initialState = function initialState() {
+	    if (sessionStorage.getItem('toDo') !== 'undefined') {
+	        return JSON.parse(sessionStorage.getItem('toDo'));
+	    }
+	    return {
+	        filter: "all",
+	        todos: [{
+	            id: 0,
+	            text: 'Take a look at the application',
+	            done: true
+	        }, {
+	            id: 1,
+	            text: 'Add ability to filter todos',
+	            done: false
+	        }, {
+	            id: 2,
+	            text: 'Filter todos by status',
+	            done: false
+	        }, {
+	            id: 3,
+	            text: 'Filter todos by text',
+	            done: false
+	        }]
+	    };
 	};
 
 	function todoChangeHandler(state, change) {
@@ -9354,7 +9359,7 @@
 	    }
 	}
 
-	var todos = exports.todos = (0, _state.createStore)(todoChangeHandler, initialState);
+	var todos = exports.todos = (0, _state.createStore)(todoChangeHandler, initialState());
 
 /***/ }),
 /* 333 */
@@ -10337,11 +10342,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _stringify = __webpack_require__(398);
+
+	var _stringify2 = _interopRequireDefault(_stringify);
+
 	exports.render = render;
 
 	var _feature = __webpack_require__(388);
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function render(el, state) {
+	    // Update Session Storage
+	    sessionStorage.setItem('toDo', (0, _stringify2.default)(state));
 	    var todoItems = state.todos.map(function (toDo) {
 	        if (state.filter == 'all') {
 	            return renderTodoItem(toDo);
@@ -10579,6 +10593,23 @@
 	        text: text
 	    };
 		}
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(399), __esModule: true };
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var core = __webpack_require__(348);
+	var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
+	module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
+	  return $JSON.stringify.apply($JSON, arguments);
+	};
+
 
 /***/ })
 /******/ ]);

@@ -1,29 +1,34 @@
 import { createStore } from './lib/state';
 
-const initialState = {
-    filter: "all",
-    todos: [
-        {
-            id: 0,
-            text: 'Take a look at the application',
-            done: true
-        },
-        {
-            id: 1,
-            text: 'Add ability to filter todos',
-            done: false
-        },
-        {
-            id: 2,
-            text: 'Filter todos by status',
-            done: false
-        },
-        {
-            id: 3,
-            text: 'Filter todos by text',
-            done: false
-        }
-    ]
+const initialState = () => {
+    if (sessionStorage.getItem('toDo')!=='undefined') {
+        return JSON.parse(sessionStorage.getItem('toDo'));
+    }
+    return {
+        filter: "all",
+        todos: [
+            {
+                id: 0,
+                text: 'Take a look at the application',
+                done: true
+            },
+            {
+                id: 1,
+                text: 'Add ability to filter todos',
+                done: false
+            },
+            {
+                id: 2,
+                text: 'Filter todos by status',
+                done: false
+            },
+            {
+                id: 3,
+                text: 'Filter todos by text',
+                done: false
+            }
+        ]
+    }
 };
 
 function todoChangeHandler(state, change) {
@@ -50,4 +55,4 @@ function todoChangeHandler(state, change) {
     }
 }
 
-export const todos = createStore(todoChangeHandler, initialState);
+export const todos = createStore(todoChangeHandler, initialState());

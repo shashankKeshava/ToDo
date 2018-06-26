@@ -1,6 +1,8 @@
 import { isEnabled } from './lib/feature';
 
 export function render(el, state) {
+    // Update Session Storage
+    sessionStorage.setItem('toDo', JSON.stringify(state));
     const todoItems = state.todos.map(toDo => {
         if (state.filter == 'all') { return renderTodoItem(toDo) }
         else if (state.filter == 'open' && !toDo.done) { return renderTodoItem(toDo) }
@@ -59,8 +61,8 @@ function renderTodoItem(todo) {
 function filter(state) {
     return `<div class="todo_filter">
     <div class="todo_filterHeader">Filter Status</div>
-    <input class="todo_filter_options" name="toDoFilter" id="all" type="radio" ${state.filter=='all'?'checked':""}>Show all</input>
-    <input class="todo_filter_options" name="toDoFilter" id="open" type="radio" ${state.filter=='open'?'checked':""}>Show open</input>
-    <input class="todo_filter_options" name="toDoFilter" id="closed" type="radio" ${state.filter=='closed'?'checked':""}>Show closed</input>
+    <input class="todo_filter_options" name="toDoFilter" id="all" type="radio" ${state.filter == 'all' ? 'checked' : ""}>Show all</input>
+    <input class="todo_filter_options" name="toDoFilter" id="open" type="radio" ${state.filter == 'open' ? 'checked' : ""}>Show open</input>
+    <input class="todo_filter_options" name="toDoFilter" id="closed" type="radio" ${state.filter == 'closed' ? 'checked' : ""}>Show closed</input>
     </div>`
 }
